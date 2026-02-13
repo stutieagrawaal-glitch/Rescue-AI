@@ -1,26 +1,5 @@
-const fs = require('fs');
-const path = require('path');
-const crypto = require('crypto');
-
-const dbPath = path.join(process.cwd(), 'database.json');
-
-function readDB() {
-  try {
-    if (!fs.existsSync(dbPath)) {
-      return { users: [], emergencies: [] };
-    }
-    const data = fs.readFileSync(dbPath, 'utf-8');
-    return JSON.parse(data || '{"users":[],"emergencies":[]}');
-  } catch (error) {
-    return { users: [], emergencies: [] };
-  }
-}
-
-function hashPassword(password) {
-  return crypto.createHash('sha256').update(password).digest('hex');
-}
-
 export default function handler(req, res) {
+  // CORS headers
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -35,28 +14,31 @@ export default function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Email and password required' });
-  }
-
   try {
-    const db = readDB();
-    const user = db.users.find(u => u.email === email && u.password === hashPassword(password));
+    const { email, password } = req.body;
 
-    if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+    // Validation
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password required' });
     }
 
-    res.json({
-      success: true,
-      userId: user.id,
-      fullName: user.fullName,
-      email: user.email
-    });
+    // Mock authentication (replace with real logic later)
+    if (email === 'test@example.com' && password === '123456') {
+      return res.status(200).json({
+        success: true,
+        userId: 'user_1',
+        fullName: 'Test User',
+        email: email,
+        message: 'Login successful'
+      });
+    }
+
+    return res.status(401).json({ error: 'Invalid credentials' });
   } catch (error) {
     console.error('Signin error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ 
+      error: 'Internal server error',
+      details: error.toString()
+    });
   }
 }
