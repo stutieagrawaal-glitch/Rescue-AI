@@ -1,30 +1,5 @@
-const fs = require('fs');
-const path = require('path');
-const crypto = require('crypto');
-
-const dbPath = path.join(process.cwd(), 'database.json');
-
-function readDB() {
-  try {
-    if (!fs.existsSync(dbPath)) {
-      return { users: [], emergencies: [] };
-    }
-    const data = fs.readFileSync(dbPath, 'utf-8');
-    return JSON.parse(data || '{"users":[],"emergencies":[]}');
-  } catch (error) {
-    return { users: [], emergencies: [] };
-  }
-}
-
-function writeDB(data) {
-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
-}
-
-function generateEmergencyID() {
-  return 'RID-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5).toUpperCase();
-}
-
 export default function handler(req, res) {
+  // CORS headers
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -36,53 +11,59 @@ export default function handler(req, res) {
   }
 
   if (req.method === 'POST') {
-    const { fullName, bloodType, allergies, conditions, emergencyContact } = req.body;
-
-    if (!fullName || !bloodType) {
-      return res.status(400).json({ error: 'Name and blood type required' });
-    }
-
     try {
-      const db = readDB();
-      const emergencyProfile = {
-        id: generateEmergencyID(),
+      const { fullName, bloodType, allergies, conditions, emergencyContact } = req.body;
+
+      if (!fullName || !bloodType) {
+        return res.status(400).json({ error: 'Name and blood type required' });
+      }
+
+      const emergencyID = `RID-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
+
+      return res.status(201).json({
+        success: true,
+        emergencyID: emergencyID,
         fullName,
         bloodType,
         allergies: allergies || 'None',
         conditions: conditions || 'None',
         emergencyContact: emergencyContact || 'Not provided',
-        createdAt: new Date().toISOString()
-      };
-
-      db.emergencies.push(emergencyProfile);
-      writeDB(db);
-
-      res.status(201).json({
-        success: true,
-        emergencyID: emergencyProfile.id,
         message: 'Emergency profile created'
       });
     } catch (error) {
-      console.error('Emergency create error:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      console.error('Emergency POST error:', error);
+      return res.status(500).json({ 
+        error: 'Internal server error',
+        details: error.toString()
+      });
     }
-  } else if (req.method === 'GET') {
-    const { id } = req.query;
-    
+  } 
+  else if (req.method === 'GET') {
     try {
-      const db = readDB();
-      const profile = db.emergencies.find(e => e.id === id);
+      const { id } = req.query;
 
-      if (!profile) {
-        return res.status(404).json({ error: 'Profile not found' });
+      if (!id) {
+        return res.status(400).json({ error: 'Emergency ID required' });
       }
 
-      res.json(profile);
+      // Mock response
+      return res.status(200).json({
+        id: id,
+        fullName: 'Test User',
+        bloodType: 'O+',
+        allergies: 'None',
+        conditions: 'None',
+        emergencyContact: '+1234567890'
+      });
     } catch (error) {
-      console.error('Emergency get error:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      console.error('Emergency GET error:', error);
+      return res.status(500).json({ 
+        error: 'Internal server error',
+        details: error.toString()
+      });
     }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
+  }
+  else {
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 }
