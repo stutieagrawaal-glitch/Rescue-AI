@@ -1,4 +1,14 @@
-export default function handler(req, res) {
+const crypto = require('crypto');
+
+function hashPassword(password) {
+  return crypto.createHash('sha256').update(password).digest('hex');
+}
+
+function generateRescueId() {
+  return `RESCUE-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+}
+
+module.exports = (req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -16,6 +26,7 @@ export default function handler(req, res) {
   try {
     const { fullName, email, password, confirmPassword } = req.body;
 
+    // Validation
     if (!fullName || !email || !password) {
       return res.status(400).json({ error: 'All fields required' });
     }
@@ -28,10 +39,14 @@ export default function handler(req, res) {
       return res.status(400).json({ error: 'Password must be at least 6 characters' });
     }
 
-    // Temporary: Just save to localStorage on frontend
+    // Generate Rescue ID
+    const rescueId = generateRescueId();
+
+    // Return success with Rescue ID
     return res.status(201).json({
       success: true,
       userId: `user_${Date.now()}`,
+      rescueId: rescueId,
       fullName,
       email,
       message: 'Account created successfully'
@@ -44,4 +59,4 @@ export default function handler(req, res) {
       details: error.message
     });
   }
-}
+};
