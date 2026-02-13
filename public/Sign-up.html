@@ -1,555 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - RescueID</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Sign Up | RescueID</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 500px;
-            width: 100%;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo {
-            font-size: 40px;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 10px;
-        }
-
-        .tagline {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-            font-family: inherit;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .form-footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .form-footer a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .form-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .alert {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-            font-weight: 500;
-        }
-
-        .alert.show {
-            display: block;
-        }
-
-        .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .success-box {
-            display: none;
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .success-box.show {
-            display: block;
-        }
-
-        .success-icon {
-            font-size: 50px;
-            margin-bottom: 15px;
-        }
-
-        .success-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .rescue-id-box {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border: 2px dashed rgba(255, 255, 255, 0.5);
-        }
-
-        .rescue-id-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.9;
-            margin-bottom: 8px;
-        }
-
-        .rescue-id {
-            font-size: 18px;
-            font-weight: bold;
-            word-break: break-all;
-            background: rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            margin-bottom: 15px;
-        }
-
-        .copy-btn {
-            background: rgba(255, 255, 255, 0.3);
-            padding: 8px 15px;
-            font-size: 13px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        .success-message {
-            font-size: 14px;
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .action-buttons button {
-            flex: 1;
-            margin: 0;
-            background: rgba(255, 255, 255, 0.3);
-            font-size: 14px;
-        }
-
-        .action-buttons button:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        .form-section {
-            display: block;
-        }
-
-        .form-section.hide {
-            display: none;
-        }
-
-        .password-strength {
-            font-size: 12px;
-            margin-top: 5px;
-            padding: 5px;
-            border-radius: 5px;
-            display: none;
-        }
-
-        .password-strength.show {
-            display: block;
-        }
-
-        .strength-weak {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .strength-medium {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .strength-strong {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        @media (max-width: 600px) {
-            .card {
-                padding: 25px;
-            }
-
-            .logo {
-                font-size: 32px;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .container { max-width: 500px; width: 100%; padding: 20px; }
+        .card { background: white; border-radius: 15px; padding: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        h1 { text-align: center; color: #333; margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
+        input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; }
+        input:focus { outline: none; border-color: #667eea; }
+        button { width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        button:hover { background: #764ba2; }
+        .success-box { display: none; background: #d4edda; border: 2px solid #28a745; padding: 20px; border-radius: 10px; text-align: center; }
+        .success-box.show { display: block; }
+        .rescue-id { background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 18px; font-weight: bold; color: #667eea; font-family: monospace; word-break: break-all; }
+        .copy-btn { background: #28a745; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .copy-btn:hover { background: #218838; }
+        .error { background: #f8d7da; color: #721c24; padding: 12px; border-radius: 8px; margin-bottom: 15px; display: none; }
+        .error.show { display: block; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo">🆘 RescueID</div>
-            <p class="tagline">Join the Humanitarian Response Network</p>
-        </div>
-
         <div class="card">
-            <!-- Success Box (Hidden by default) -->
-            <div class="success-box" id="successBox">
-                <div class="success-icon">✅</div>
-                <div class="success-title">Welcome to RescueID!</div>
-                <div class="success-message">
-                    Your account has been created successfully. Save your Rescue ID for future reference.
-                </div>
-                <div class="rescue-id-box">
-                    <div class="rescue-id-label">Your Unique Rescue ID</div>
-                    <div class="rescue-id" id="rescueIdDisplay">--</div>
-                    <button class="copy-btn" onclick="copyRescueId()">📋 Copy Rescue ID</button>
-                </div>
-                <div style="font-size: 13px; opacity: 0.9; margin: 15px 0;">
-                    Use this ID to manage your emergency profile and access your account.
-                </div>
-                <div class="action-buttons">
-                    <button onclick="goToDashboard()">📊 Go to Dashboard</button>
-                    <button onclick="goToHome()">🏠 Return Home</button>
-                </div>
-            </div>
-
-            <!-- Alert Messages -->
-            <div class="alert alert-error" id="errorAlert"></div>
-
-            <!-- Signup Form (Hidden after success) -->
-            <div class="form-section" id="formSection">
+            <!-- Sign Up Form -->
+            <div id="formSection">
+                <h1>Create Account</h1>
+                
+                <div class="error" id="errorMsg"></div>
+                
                 <form id="signupForm" onsubmit="handleSignUp(event)">
-                    <h2 style="margin-bottom: 20px; color: #333; text-align: center;">Create Account</h2>
-
-                    <!-- Full Name -->
                     <div class="form-group">
-                        <label for="fullName">Full Name *</label>
-                        <input 
-                            type="text" 
-                            id="fullName" 
-                            placeholder="Enter your full name" 
-                            required
-                        >
+                        <label>Full Name</label>
+                        <input type="text" id="full-name" placeholder="John Doe" required>
                     </div>
-
-                    <!-- Email -->
+                    
                     <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            placeholder="Enter your email" 
-                            required
-                        >
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="john@example.com" required>
                     </div>
-
-                    <!-- Password -->
+                    
                     <div class="form-group">
-                        <label for="password">Password *</label>
-                        <input 
-                            type="password" 
-                            id="password" 
-                            placeholder="At least 6 characters" 
-                            required
-                            onchange="checkPasswordStrength()"
-                        >
-                        <div class="password-strength" id="passwordStrength"></div>
+                        <label>Password</label>
+                        <input type="password" id="password" placeholder="Min 6 characters" required>
                     </div>
-
-                    <!-- Confirm Password -->
+                    
                     <div class="form-group">
-                        <label for="confirmPassword">Confirm Password *</label>
-                        <input 
-                            type="password" 
-                            id="confirmPassword" 
-                            placeholder="Re-enter your password" 
-                            required
-                        >
+                        <label>Confirm Password</label>
+                        <input type="password" id="confirm-password" placeholder="Confirm password" required>
                     </div>
-
-                    <!-- Terms & Conditions -->
-                    <div class="form-group" style="display: flex; align-items: center; margin-bottom: 25px;">
-                        <input 
-                            type="checkbox" 
-                            id="terms" 
-                            required
-                            style="width: auto; margin-right: 10px; cursor: pointer;"
-                        >
-                        <label for="terms" style="margin: 0;">
-                            I agree to the Terms and Conditions
-                        </label>
-                    </div>
-
-                    <!-- Submit Button -->
+                    
                     <button type="submit">Create Account</button>
-
-                    <!-- Already have account -->
-                    <div class="form-footer">
-                        Already have an account? <a href="/Sign-in.html">Sign In</a>
-                    </div>
+                    <p style="text-align: center; margin-top: 15px; color: #666;">
+                        Already have account? <a href="/Sign-in.html" style="color: #667eea; text-decoration: none; font-weight: bold;">Sign In</a>
+                    </p>
                 </form>
             </div>
-        </div>
-
-        <!-- Security Badge -->
-        <div style="text-align: center; margin-top: 20px; color: white; font-size: 12px;">
-            🔒 Your data is encrypted and stored securely
+            
+            <!-- Success Box (Hidden until signup) -->
+            <div class="success-box" id="successBox">
+                <h1 style="color: #28a745;">✅ Welcome to RescueID!</h1>
+                <p style="color: #333; margin: 15px 0;">Your account has been created successfully.</p>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; border: 2px solid #28a745;">
+                    <p style="color: #666; font-size: 14px; margin-bottom: 10px;">Your Unique Rescue ID:</p>
+                    <div class="rescue-id" id="rescueIdValue">RESCUE-XXXX</div>
+                    <button class="copy-btn" onclick="copyRescueId()">📋 Copy ID</button>
+                </div>
+                
+                <p style="color: #666; margin: 20px 0; font-size: 14px;">Save this ID for future reference</p>
+                
+                <button style="background: #667eea; margin-top: 15px;" onclick="window.location.href='/Sign-in.html'">Go to Sign In</button>
+                <button style="background: #6c757d; margin-top: 10px;" onclick="window.location.href='/'">Return Home</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // Check password strength
-        function checkPasswordStrength() {
-            const password = document.getElementById('password').value;
-            const strengthDiv = document.getElementById('passwordStrength');
-
-            if (password.length === 0) {
-                strengthDiv.classList.remove('show');
-                return;
-            }
-
-            let strength = 'weak';
-            let message = '⚠️ Weak password';
-
-            if (password.length >= 8) {
-                if (/[A-Z]/.test(password) && /[0-9]/.test(password)) {
-                    strength = 'strong';
-                    message = '✅ Strong password';
-                } else {
-                    strength = 'medium';
-                    message = '⚡ Medium strength';
-                }
-            } else if (password.length >= 6) {
-                strength = 'medium';
-                message = '⚡ Medium strength';
-            }
-
-            strengthDiv.className = `password-strength show strength-${strength}`;
-            strengthDiv.textContent = message;
-        }
-
-        // Generate Rescue ID
-        function generateRescueId() {
-            return `RESCUE-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-        }
-
-        // Handle signup
         async function handleSignUp(event) {
             event.preventDefault();
-
-            const fullName = document.getElementById('fullName')?.value;
-            const email = document.getElementById('email')?.value;
-            const password = document.getElementById('password')?.value;
-            const confirmPassword = document.getElementById('confirmPassword')?.value;
-            const termsCheckbox = document.getElementById('terms')?.checked;
-
+            
+            const fullName = document.getElementById('full-name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const errorMsg = document.getElementById('errorMsg');
+            
+            // Reset error
+            errorMsg.classList.remove('show');
+            
             // Validation
             if (!fullName || !email || !password || !confirmPassword) {
-                showError('⚠️ All fields are required');
+                showError('⚠️ All fields required');
                 return;
             }
-
-            if (!validateEmail(email)) {
-                showError('⚠️ Please enter a valid email address');
-                return;
-            }
-
+            
             if (password.length < 6) {
                 showError('⚠️ Password must be at least 6 characters');
                 return;
             }
-
+            
             if (password !== confirmPassword) {
                 showError('⚠️ Passwords do not match');
                 return;
             }
-
-            if (!termsCheckbox) {
-                showError('⚠️ You must agree to the Terms and Conditions');
-                return;
-            }
-
+            
             try {
                 const response = await fetch('/api/signup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        fullName,
-                        email,
-                        password,
-                        confirmPassword
-                    })
+                    body: JSON.stringify({ fullName, email, password, confirmPassword })
                 });
-
+                
                 const data = await response.json();
-
+                
                 if (!response.ok) {
-                    showError('❌ ' + (data.error || 'Signup failed'));
+                    showError('❌ ' + (data.error || 'Failed to signup'));
                     return;
                 }
-
-                // Generate Rescue ID
-                const rescueId = generateRescueId();
-
-                // Store user info
+                
+                // Get Rescue ID from API or generate locally
+                const rescueId = data.rescueId || generateRescueId();
+                
+                // Save to localStorage
                 localStorage.setItem('userId', data.userId);
                 localStorage.setItem('userName', data.fullName);
                 localStorage.setItem('userEmail', data.email);
                 localStorage.setItem('rescueId', rescueId);
-
+                
                 // Show success
-                showSuccess(rescueId, data.fullName);
-
+                showSuccess(rescueId);
+                
             } catch (error) {
-                console.error('Signup error:', error);
+                console.error('Error:', error);
                 showError('❌ Error: ' + error.message);
             }
         }
-
-        // Validate email
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        // Show error
+        
         function showError(message) {
-            const errorAlert = document.getElementById('errorAlert');
-            errorAlert.textContent = message;
-            errorAlert.classList.add('show');
-            setTimeout(() => errorAlert.classList.remove('show'), 5000);
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.textContent = message;
+            errorMsg.classList.add('show');
         }
-
-        // Show success
-        function showSuccess(rescueId, fullName) {
-            // Hide form
-            document.getElementById('formSection').classList.add('hide');
-            
-            // Show success box
+        
+        function showSuccess(rescueId) {
+            document.getElementById('formSection').style.display = 'none';
             document.getElementById('successBox').classList.add('show');
-            
-            // Display Rescue ID
-            document.getElementById('rescueIdDisplay').textContent = rescueId;
+            document.getElementById('rescueIdValue').textContent = rescueId;
         }
-
-        // Copy Rescue ID
+        
+        function generateRescueId() {
+            return `RESCUE-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+        }
+        
         function copyRescueId() {
-            const rescueId = document.getElementById('rescueIdDisplay').textContent;
+            const rescueId = document.getElementById('rescueIdValue').textContent;
             navigator.clipboard.writeText(rescueId).then(() => {
-                alert('✅ Rescue ID copied to clipboard!');
+                alert('✅ Rescue ID copied!');
             }).catch(() => {
-                alert('Failed to copy. Please copy manually.');
+                alert('Copy manually: ' + rescueId);
             });
-        }
-
-        // Go to dashboard
-        function goToDashboard() {
-            window.location.href = '/dashboard.html';
-        }
-
-        // Go to home
-        function goToHome() {
-            window.location.href = '/';
         }
     </script>
 </body>
