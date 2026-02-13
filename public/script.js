@@ -1,3 +1,47 @@
+// ===== GLOBAL UTILITIES =====
+
+// Show/Hide alerts
+function showAlert(message, type = 'success') {
+  const alertDiv = document.createElement('div');
+  alertDiv.className = `alert alert-${type} show`;
+  alertDiv.textContent = message;
+  
+  const container = document.body.querySelector('.container') || document.body;
+  container.insertBefore(alertDiv, container.firstChild);
+
+  setTimeout(() => alertDiv.remove(), 5000);
+}
+
+// Get user from localStorage
+function getUser() {
+  return {
+    userId: localStorage.getItem('userId'),
+    userName: localStorage.getItem('userName')
+  };
+}
+
+// Logout
+function logout() {
+  localStorage.removeItem('userId');
+  localStorage.removeItem('userName');
+  window.location.href = '/Sign-in.html';
+}
+
+// ===== FORM HELPERS =====
+
+// Validate email
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
+// Validate password strength
+function validatePassword(password) {
+  return password.length >= 6;
+}
+
+// ===== EMERGENCY PROFILE HANDLER =====
+
 // Enhanced QR generation with backend integration
 async function generateQRWithBackend(event) {
   if (event) event.preventDefault();
@@ -83,3 +127,147 @@ async function generateQRWithBackend(event) {
     alert('❌ Error: ' + error.message);
   }
 }
+
+// ===== AUTH HANDLERS =====
+
+// Sign Up Handler
+async function handleSignUp(event) {
+  event.preventDefault();
+
+  const fullName = document.getElementById('fullName')?.value;
+  const email = document.getElementById('email')?.value;
+  const password = document.getElementById('password')?.value;
+  const confirmPassword = document.getElementById('confirmPassword')?.value;
+
+  // Validation
+  if (!fullName || !email || !password || !confirmPassword) {
+    alert('⚠️ All fields are required');
+    return;
+  }
+
+  if (!validateEmail(email)) {
+    alert('⚠️ Please enter a valid email');
+    return;
+  }
+
+  if (!validatePassword(password)) {
+    alert('⚠️ Password must be at least 6 characters');
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    alert('⚠️ Passwords do not match');
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fullName,
+        email,
+        password,
+        confirmPassword
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert('❌ ' + (data.error || 'Signup failed'));
+      return;
+    }
+
+    // Store user info
+    localStorage.setItem('userId', data.userId);
+    localStorage.setItem('userName', data.fullName);
+    localStorage.setItem('userEmail', data.email);
+
+    alert('✅ ' + (data.message || 'Account created successfully!'));
+    window.location.href = '/dashboard.html';
+
+  } catch (error) {
+    console.error('Signup error:', error);
+    alert('❌ Error: ' + error.message);
+  }
+}
+
+// Sign In Handler
+async function handleSignIn(event) {
+  event.preventDefault();
+
+  const email = document.getElementById('email')?.value;
+  const password = document.getElementById('password')?.value;
+
+  // Validation
+  if (!email || !password) {
+    alert('⚠️ Email and password are required');
+    return;
+  }
+
+  if (!validateEmail(email)) {
+    alert('⚠️ Please enter a valid email');
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/signin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert('❌ ' + (data.error || 'Login failed'));
+      return;
+    }
+
+    // Store user info
+    localStorage.setItem('userId', data.userId);
+    localStorage.setItem('userName', data.fullName);
+    localStorage.setItem('userEmail', data.email);
+
+    alert('✅ ' + (data.message || 'Login successful!'));
+    window.location.href = '/dashboard.html';
+
+  } catch (error) {
+    console.error('Signin error:', error);
+    alert('❌ Error: ' + error.message);
+  }
+}
+
+// ===== DASHBOARD HELPERS =====
+
+// Load dashboard on page load
+function loadDashboard() {
+  const user = getUser();
+  
+  if (!user.userId) {
+    window.location.href = '/Sign-in.html';
+    return;
+  }
+
+  // Display user name
+  const userNameElement = document.getElementById('userName');
+  if (userNameElement) {
+    userNameElement.textContent = user.userName || 'User';
+  }
+}
+
+// ===== PAGE INITIALIZATION =====
+
+// Initialize on page load
+window.addEventListener('DOMContentLoaded', () => {
+  // Check current page and load appropriate content
+  const currentPage = window.location.pathname;
+  
+  if (currentPage.includes('dashboard')) {
+    loadDashboard();
+  }
+});
