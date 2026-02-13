@@ -12,16 +12,31 @@ function readDB() {
     const data = fs.readFileSync(dbPath, 'utf-8');
     return JSON.parse(data || '{"users":[],"emergencies":[]}');
   } catch (error) {
+    console.error('Read DB error:', error);
     return { users: [], emergencies: [] };
   }
 }
 
 function writeDB(data) {
-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
+  try {
+    fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
+  } catch (error) {
+    console.error('Write DB error:', error);
+    throw error;
+  }
 }
 
 function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
+}
+
+function generateID() {
+  try {
+    return crypto.randomUUID();
+  } catch (error) {
+    // Fallback if randomUUID not available
+    return 'user-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+  }
 }
 
 export default function handler(req, res) {
@@ -41,6 +56,8 @@ export default function handler(req, res) {
 
   const { fullName, email, password, confirmPassword } = req.body;
 
+  console.log('Signup request:', { fullName, email });
+
   if (!fullName || !email || !password) {
     return res.status(400).json({ error: 'All fields required' });
   }
@@ -57,7 +74,7 @@ export default function handler(req, res) {
     }
 
     const newUser = {
-      id: crypto.randomUUID(),
+      id: generateID(),
       fullName,
       email,
       password: hashPassword(password),
@@ -66,6 +83,8 @@ export default function handler(req, res) {
 
     db.users.push(newUser);
     writeDB(db);
+
+    console.log('User created:', newUser.id);
 
     res.status(201).json({ 
       success: true, 
