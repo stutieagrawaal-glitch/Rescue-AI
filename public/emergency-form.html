@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Complete Emergency Profile | RescueID</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display">
+    <!-- Header -->
+    <header class="border-b border-primary/10 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                    <span class="material-icons text-white text-xl">qr_code_2</span>
+                </div>
+                <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">RESCUE<span class="text-primary text-sm align-top ml-0.5">ID</span></span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span id="userName" class="text-sm font-medium text-slate-600 dark:text-slate-400"></span>
+                <button onclick="logout()" class="text-sm font-medium text-primary hover:text-primary/80">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <section class="mb-12">
+            <h1 class="text-4xl font-bold mb-3">Complete Your Emergency Profile</h1>
+            <p class="text-slate-500 dark:text-slate-400 text-lg">
+                Provide detailed medical and contact information to generate your rescue QR code.
+            </p>
+        </section>
+
+        <form id="emergencyForm" class="space-y-8">
+            <!-- Full Name (Pre-filled) -->
+            <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-primary/20">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    <span class="material-icons text-sm align-middle">person</span> Full Name (From Login)
+                </label>
+                <input 
+                    type="text" 
+                    id="fullName" 
+                    readonly
+                    class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-300 cursor-not-allowed"
+                    placeholder="Your name will appear here"
+                />
+            </div>
+
+            <!-- Age -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    <span class="material-icons text-sm align-middle">cake</span> Age
+                </label>
+                <input 
+                    type="number" 
+                    id="age" 
+                    min="1"
+                    max="150"
+                    placeholder="Enter your age"
+                    class="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                    required
+                />
+            </div>
+
+            <!-- Blood Group -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    <span class="material-icons text-sm align-middle">bloodtype</span> Blood Group
+                </label>
+                <select 
+                    id="bloodType"
+                    class="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                    required
+                >
+                    <option value="">Select Blood Type</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+
+            <!-- Contact Number -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    <span class="material-icons text-sm align-middle">phone</span> Contact Number
+                </label>
+                <input 
+                    type="tel" 
+                    id="contactNo" 
+                    placeholder="Enter your primary contact number"
+                    class="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                    required
+                />
+            </div>
+
+            <!-- Alternate Contact Number -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    <span class="material-icons text-sm align-middle">phone_in_talk</span> Alternate Contact Number (Optional)
+                </label>
+                <input 
+                    type="tel" 
+                    id="alternateContactNo" 
+                    placeholder="Enter an alternate contact number"
+                    class="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                />
+            </div>
+
+            <!-- Permanent Address -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    <span class="material-icons text-sm align-middle">location_on</span> Permanent Address
+                </label>
+                <textarea 
+                    id="permanentAddress" 
+                    rows="3"
+                    placeholder="Enter your permanent address"
+                    class="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                    required
+                ></textarea>
+            </div>
+
+            <!-- Recent Medical History -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    <span class="material-icons text-sm align-middle">local_hospital</span> Recent Medical History
+                </label>
+                <textarea 
+                    id="medicalHistory" 
+                    rows="4"
+                    placeholder="List any recent surgeries, treatments, or medical conditions"
+                    class="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                ></textarea>
+            </div>
+
+            <!-- Allergies -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    <span class="material-icons text-sm align-middle">warning</span> Allergies
+                </label>
+                <textarea 
+                    id="allergies" 
+                    rows="3"
+                    placeholder="List any allergies (e.g., Penicillin, Latex, Food allergies)"
+                    class="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                ></textarea>
+            </div>
+
+            <!-- Medicines -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    <span class="material-icons text-sm align-middle">medication</span> Current Medicines
+                </label>
+                <textarea 
+                    id="medicines" 
+                    rows="4"
+                    placeholder="List current medications with dosages (e.g., Aspirin 100mg daily)"
+                    class="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-6">
+                <button 
+                    type="submit"
+                    class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-3 transition-all"
+                >
+                    <span class="material-icons">qr_code</span>
+                    Generate My QR Code
+                </button>
+                <p class="text-center text-xs text-slate-500 dark:text-slate-500 mt-4">
+                    Your information will be securely encoded in your QR code for emergency responders.
+                </p>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        // Load user info on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const userName = localStorage.getItem('userName');
+            const userId = localStorage.getItem('userId');
+
+            if (!userName || !userId) {
+                alert('Please log in first');
+                window.location.href = '/Sign-in.html';
+                return;
+            }
+
+            document.getElementById('fullName').value = userName;
+            document.getElementById('userName').textContent = `Welcome, ${userName}!`;
+        });
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            window.location.href = '/';
+        }
+
+        // Form submission
+        document.getElementById('emergencyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const age = document.getElementById('age').value;
+            const bloodType = document.getElementById('bloodType').value;
+            const contactNo = document.getElementById('contactNo').value;
+            const alternateContactNo = document.getElementById('alternateContactNo').value;
+            const permanentAddress = document.getElementById('permanentAddress').value;
+            const medicalHistory = document.getElementById('medicalHistory').value;
+            const allergies = document.getElementById('allergies').value;
+            const medicines = document.getElementById('medicines').value;
+            const userId = localStorage.getItem('userId');
+
+            // Validation
+            if (!age || !bloodType || !contactNo || !permanentAddress) {
+                alert('⚠️ Please fill in all required fields');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/emergency', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId,
+                        fullName,
+                        age,
+                        bloodType,
+                        contactNo,
+                        alternateContactNo,
+                        permanentAddress,
+                        medicalHistory,
+                        allergies,
+                        medicines
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    alert('❌ Error: ' + (data.error || 'Failed to create profile'));
+                    return;
+                }
+
+                // Redirect to QR display page
+                localStorage.setItem('emergencyID', data.emergencyID);
+                window.location.href = '/qr-display.html';
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Error: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>

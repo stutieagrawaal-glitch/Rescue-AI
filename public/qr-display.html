@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Your QR Code | RescueID</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @media print {
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display">
+    <!-- Header -->
+    <header class="border-b border-primary/10 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50 no-print">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                    <span class="material-icons text-white text-xl">qr_code_2</span>
+                </div>
+                <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">RESCUE<span class="text-primary text-sm align-top ml-0.5">ID</span></span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-3 text-green-600">✅ Profile Created Successfully!</h1>
+            <p class="text-slate-500 dark:text-slate-400 text-lg">
+                Your unique emergency QR code is ready. Share or print it below.
+            </p>
+        </div>
+
+        <!-- QR Code Section -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-12 border-2 border-primary mb-8 text-center">
+            <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Your Emergency QR Code</h2>
+            
+            <div class="flex justify-center mb-8">
+                <div class="bg-white p-6 rounded-xl border-4 border-primary">
+                    <img 
+                        id="qrCode" 
+                        src="" 
+                        alt="Emergency QR Code" 
+                        width="300" 
+                        height="300"
+                        class="block"
+                    />
+                </div>
+            </div>
+
+            <p id="emergencyID" class="text-sm font-mono bg-slate-100 dark:bg-slate-800 p-3 rounded-lg mb-6 text-slate-700 dark:text-slate-300">
+                Loading ID...
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <button 
+                    onclick="downloadQR()"
+                    class="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-lg transition-all"
+                >
+                    <span class="material-icons">download</span>
+                    Download
+                </button>
+
+                <button 
+                    onclick="printQR()"
+                    class="flex items-center justify-center gap-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-bold py-3 rounded-lg transition-all"
+                >
+                    <span class="material-icons">print</span>
+                    Print
+                </button>
+
+                <button 
+                    onclick="shareQR()"
+                    class="flex items-center justify-center gap-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-bold py-3 rounded-lg transition-all"
+                >
+                    <span class="material-icons">share</span>
+                    Share
+                </button>
+
+                <button 
+                    onclick="viewProfile()"
+                    class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-lg transition-all"
+                >
+                    <span class="material-icons">visibility</span>
+                    View
+                </button>
+            </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
+                <h3 class="font-bold text-lg mb-3 flex items-center gap-2 text-blue-900 dark:text-blue-300">
+                    <span class="material-icons">info</span> How to Use
+                </h3>
+                <ul class="space-y-2 text-sm text-blue-800 dark:text-blue-200">
+                    <li>✅ Print and keep in your wallet</li>
+                    <li>✅ Wear as an ID card or wristband</li>
+                    <li>✅ Save digitally on your phone</li>
+                    <li>✅ Share with emergency contacts</li>
+                </ul>
+            </div>
+
+            <div class="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-xl p-6">
+                <h3 class="font-bold text-lg mb-3 flex items-center gap-2 text-green-900 dark:text-green-300">
+                    <span class="material-icons">security</span> Your Data is Safe
+                </h3>
+                <ul class="space-y-2 text-sm text-green-800 dark:text-green-200">
+                    <li>🔒 Military-grade encryption</li>
+                    <li>🔒 Accessible only via QR scan</li>
+                    <li>🔒 Never shared without permission</li>
+                    <li>🔒 Compliant with privacy laws</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-8 flex gap-4 justify-center no-print">
+            <a href="/emergency-form.html" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-bold py-3 px-6 rounded-lg transition-all">
+                ← Edit Profile
+            </a>
+            <a href="/" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition-all">
+                Go Home →
+            </a>
+        </div>
+    </main>
+
+    <script>
+        let emergencyID = '';
+
+        // Load QR on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            emergencyID = localStorage.getItem('emergencyID');
+
+            if (!emergencyID) {
+                alert('No emergency profile found');
+                window.location.href = '/emergency-form.html';
+                return;
+            }
+
+            // Display emergency ID
+            document.getElementById('emergencyID').textContent = `Emergency ID: ${emergencyID}`;
+
+            // Generate QR code URL
+            const qrUrl = `${window.location.origin}/emergency.html?id=${emergencyID}`;
+            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrUrl)}`;
+
+            // Set QR image
+            document.getElementById('qrCode').src = qrApiUrl;
+        });
+
+        // Download QR Code
+        function downloadQR() {
+            const link = document.createElement('a');
+            link.href = document.getElementById('qrCode').src;
+            link.download = `RescueID-${emergencyID}.png`;
+            link.click();
+        }
+
+        // Print QR Code
+        function printQR() {
+            window.print();
+        }
+
+        // Share QR Code
+        function shareQR() {
+            const qrUrl = `${window.location.origin}/emergency.html?id=${emergencyID}`;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My RescueID QR Code',
+                    text: 'Scan this QR code in case of emergency',
+                    url: qrUrl
+                });
+            } else {
+                alert('Share link: ' + qrUrl);
+            }
+        }
+
+        // View Profile
+        function viewProfile() {
+            window.location.href = `/emergency.html?id=${emergencyID}`;
+        }
+    </script>
+</body>
+</html>

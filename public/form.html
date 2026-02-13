@@ -1,0 +1,65 @@
+        function displayQR(event) {
+            event.preventDefault();
+            try {
+                // 1. Get elements
+                const fname = document.getElementById('fname').value;
+                const dob = document.getElementById('dob').value;
+                const bio = document.getElementById('bio').value;
+                const fb = document.getElementById('facebook').value;
+                const num = document.getElementById('number').value;
+
+                // 2. Validate - QR APIs will fail if data is empty
+                if (!fname) {
+                    alert("Please at least enter a name.");
+                    return;
+                }
+
+                // 3. Send to backend to create emergency profile
+                const bloodType = document.getElementById('gender').value;
+                const allergies = bio.split('\n')[0]; // First line as allergies
+                
+                fetch('/api/emergency', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        fullName: fname,
+                        bloodType: bloodType,
+                        allergies: bio,
+                        conditions: bio,
+                        emergencyContact: num
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // Generate QR
+                        const emergencyID = data.emergencyID;
+                        const qrUrl = `${window.location.origin}/emergency.html?id=${emergencyID}`;
+                        
+                        const size = "300x300";
+                        const baseUrl = "https://api.qrserver.com/v1/create-qr-code/";
+                        const finalUrl = `${baseUrl}?size=${size}&data=${encodeURIComponent(qrUrl)}`;
+
+                        const qrImage = document.getElementById('qrImage');
+                        qrImage.src = finalUrl;
+                        
+                        const qrContainer = document.getElementById('qr-container');
+                        qrContainer.style.display = "block";
+
+                        qrImage.onload = function () {
+                            qrImage.style.display = "inline-block";
+                            console.log("QR Code successfully loaded!");
+                        };
+
+                        qrImage.onerror = function () {
+                            console.error("The API failed to return an image.");
+                            alert("Failed to load QR code. Check your internet connection.");
+                        };
+                    }
+                })
+                .catch(err => alert('Error: ' + err.message));
+
+            } catch (error) {
+                console.error("JavaScript Error:", error);
+            }
+        }

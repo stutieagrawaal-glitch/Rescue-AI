@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": "1ef4386a-258e-4512-b133-3af49233905c",
+      "fullName": "stutie agrawaal",
+      "email": "stutieagrawaal@gmail.com",
+      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+      "createdAt": "2026-02-13T14:50:51.248Z"
+    },
+    {
+      "id": "b1dcf7e0-f717-4e62-9904-2a992f04ecf8",
+      "fullName": "shreyas bhere",
+      "email": "shreyasbhere@gmail.com",
+      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+      "createdAt": "2026-02-13T14:57:49.762Z"
+    }
+  ],
+  "emergencies": [
+    {
+      "id": "RID-1770994298259-NBL04",
+      "userId": "1ef4386a-258e-4512-b133-3af49233905c",
+      "fullName": "stutie agrawaal",
+      "age": "18",
+      "bloodType": "O+",
+      "contactNo": "09057983225",
+      "alternateContactNo": "07297883225",
+      "permanentAddress": "B-195",
+      "medicalHistory": "jaundice in januart",
+      "allergies": "none",
+      "medicines": "none",
+      "createdAt": "2026-02-13T14:51:38.259Z"
+    },
+    {
+      "id": "RID-1770994812792-UF5C2",
+      "userId": "b1dcf7e0-f717-4e62-9904-2a992f04ecf8",
+      "fullName": "shreyas bhere",
+      "age": "19",
+      "bloodType": "B+",
+      "contactNo": "9307519505",
+      "alternateContactNo": "9970767881",
+      "permanentAddress": "atharv nivas balaji nagar narsi tq Naigaon dist nanded state Maharashtra",
+      "medicalHistory": "jaundice in january",
+      "allergies": "dust allergy",
+      "medicines": "Aceleocopara medicine for allergy twice a day",
+      "createdAt": "2026-02-13T15:00:12.792Z"
+    },
+    {
+      "id": "RID-1770997327623-3XT10",
+      "userId": "b1dcf7e0-f717-4e62-9904-2a992f04ecf8",
+      "fullName": "shreyas bhere",
+      "age": "19",
+      "bloodType": "B+",
+      "contactNo": "07297883225",
+      "alternateContactNo": "09057983225",
+      "permanentAddress": "B-195\nmahal yojna, jagatpura",
+      "medicalHistory": "jaundice in january",
+      "allergies": "dust allergy",
+      "medicines": "none",
+      "createdAt": "2026-02-13T15:42:07.623Z"
+    }
+  ]
+}

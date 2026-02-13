@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RescueID | Identifying the Unseen, Saving the Vulnerable</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "emergency": "#ef4444",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(19, 127, 236, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .status-pulse {
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-icons text-white">qr_code_2</span>
+</div>
+<span class="text-xl font-bold tracking-tight">Rescue<span class="text-primary">ID</span></span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#how-it-works">How it Works</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#benefits">Benefits</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#security">Security</a>
+<div class="flex items-center gap-2 px-3 py-1 bg-emergency/10 rounded-full border border-emergency/20">
+<div class="w-2 h-2 bg-emergency rounded-full status-pulse"></div>
+<span class="text-[10px] font-bold text-emergency uppercase tracking-widest">Live Monitoring</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-sm font-semibold px-4 py-2 hover:bg-primary/10 rounded-lg transition-all" ><a href="/Sign-in.html">Log In</a></button>
+<button class="bg-primary hover:bg-primary/90 text-white text-sm font-bold px-6 py-2.5 rounded-lg transition-all shadow-lg shadow-primary/25"><a href="/Sign-up.html">Register for ID</a></button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-40">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-emergency/10 blur-[100px] rounded-full"></div>
+</div>
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid lg:grid-cols-2 gap-12 items-center">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+<span class="material-icons text-sm">verified</span> AI-Powered Humanitarian Recovery
+                    </div>
+<h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] mb-6">
+                        Identifying the <span class="text-primary">Unseen.</span><br/>Saving the Vulnerable.
+                    </h1>
+<p class="text-lg md:text-xl text-slate-500 dark:text-slate-400 mb-10 max-w-lg leading-relaxed">
+                        RescueID provides durable digital identities for victims in disaster zones. Our QR-coded recovery profiles enable first responders to access life-saving data in seconds.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="bg-primary hover:bg-primary/90 text-white text-lg font-bold px-8 py-4 rounded-xl transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2">
+                            <a href="/form.html">Generate Rescue ID </a> <span class="material-icons">arrow_forward</span>
+</button>
+<button class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-lg font-bold px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-2 border border-slate-300 dark:border-slate-700">
+                            Watch Demo
+                        </button>
+</div>
+<div class="mt-12 flex items-center gap-4 text-sm text-slate-500">
+<div class="flex -space-x-2">
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-background-dark" data-alt="Portrait of a female humanitarian worker" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXhL8w_hbRJG7G3V7dyk_zYskzS4YhLfoNQlRr0bYFPUYpwTqJqyAtkQLRQ-wf2ICnaE3U15WMc7W_eKN0-zlydzto_Dvl32ssgISIOaD8-epGLVBSbvBURG3GFXZB8CX6eSBAcXjc193P7dZy0MWohQoxSa7qDUYNSuSC9Sujj4vgE37aDgxyXtqTMcvgAoVOhj-NKmgUSmXXXdNMbfFll84yGcDudHWWRzisF-QiVr8ql1rQdgaBygDi_YdbWRFbmuUTq2niEWo"/>
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-background-dark" data-alt="Portrait of a male rescue officer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9yPe5O9NKpeDTHSTtbZezhiRWldqlcs1YgwWM0SKHwVLw9Z_0bu2gKRd8nD_f5ZEgfQXNgSgitQIg83fz5Ahs_VUpWMAhJVuS0a83oo6-iWavBgpoUSiaSlFD7b_EVdoOex65dkmbEJvpSufY1Lz9PQzodyYHm5KYjHnJaS4td0GHUSbYWlbjZOtuNg0tUJqFEKGb3GF8kgO9xUxZsbo7-CS4YHXhpgVT1-tjHS3krjhme6whn5iqPN9KtraNcQRQ7VRsBf-Uvqk"/>
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-background-dark" data-alt="Portrait of a young male volunteer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ7oD5LFCm0tD8ZWEllA5aUg9PXNg-u4T-eBwsWm3Ar4JFs5aQMqq7PUfnfTWy8-h0vwpHIZ5IRbsZeFk_Ce5NCP9pWqBCmBcR6scX-22CvIK4YSUu-MdFepypsS03F8UPwa2sJuiqJVikAg38VL-JM7jgy6HCa06u9lrLRy80NrYIQd4O-YI86Fbsj3vYOdvuSCp3nFPAguehM37BKJhVW6rvcPiVL2dSRgs6AjZnVVvvIInhTciuLITZhFTnsfZDAEsCoe7DJ04"/>
+</div>
+<span>Trusted by 50+ Global Relief Agencies</span>
+</div>
+</div>
+<div class="relative">
+<div class="relative z-10 glass-card p-8 rounded-3xl border border-white/10 shadow-2xl">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="font-bold text-xl mb-1">Rescue Profile</h3>
+<p class="text-xs text-slate-500 uppercase font-bold tracking-widest">ID: RID-9920-X</p>
+</div>
+<div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center text-primary">
+<span class="material-icons">fingerprint</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6 mb-8">
+<div class="space-y-4">
+<div>
+<label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Blood Type</label>
+<p class="font-bold text-lg text-emergency">O Negative</p>
+</div>
+<div>
+<label class="text-[10px] uppercase font-bold text-slate-500 block mb-1">Allergies</label>
+<p class="font-bold text-slate-300">Penicillin, Latex</p>
+</div>
+</div>
+<div class="flex justify-center items-center">
+<div class="bg-white p-3 rounded-xl">
+<img alt="QR Code" class="w-24 h-24" data-alt="Sample QR code for rescue identity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrfMD4-UcpT_gy12QJZPv8CB74Xw9TLOCv4sudcUAuUwF3E6FXciL32Kchv60oGXHoFP5gbf78kxbVW0C_nSNmqRB1T2VeLAbya0-THtgSiYTFp4_eI5PSYoALKcjHdwovFBhOhkgItni6dzFdX6fn7Lk6g70rNS18aPGuv_ms_gRQ-VboNtlCf8JSON02xuqdXTNQNmmX64cUWi8lGKfbu4-cDamgRU-TOs7Uayeq9iGv_AxBnfCr-3qo8iimS-xpaOsi4iWqscw"/>
+</div>
+</div>
+</div>
+<div class="p-4 bg-primary/10 rounded-xl border border-primary/20">
+<div class="flex items-center gap-3">
+<span class="material-icons text-primary">contact_phone</span>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-500">Emergency Contact</p>
+<p class="text-sm font-bold">+1 (555) 902-3412</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative background images -->
+<div class="absolute -top-10 -right-10 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
+<img alt="Rescue Operation" class="absolute -bottom-10 -left-10 w-64 h-44 object-cover rounded-2xl opacity-20 filter grayscale" data-alt="Humanitarian aid workers distributing supplies" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7DGV5WDfC8wWNnJKgUOEll6L3kgDafBg-bb4AeI4rEDn2bTLNu883JygPd4HpVxjkoRMAtr0shYki5eJnwc0sqG2gdZWsXRen7XkIlUvB1xkgYQBeDb0kRHqerTTRf33qBXwaXZ2E0cUm6VKL1GKoJBZNKLk1DLyixskyReivApcN0WVRJxIbmnhhrowKP2DPZq6kLQ7nzszkHVXDwo_dIsgBr5A7VLnYaRePGL746XyCV5tTlv0WjxhEVKpvyKO4BSTGnTPBQCw"/>
+</div>
+</div>
+</div>
+</header>
+<!-- How It Works -->
+<section class="py-24 bg-slate-50 dark:bg-slate-900/30" id="how-it-works">
+<div class="max-w-7xl mx-auto px-6">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<h2 class="text-3xl md:text-4xl font-extrabold mb-4">How RescueID Works</h2>
+<p class="text-slate-500 dark:text-slate-400">Our streamlined process ensures that critical medical and contact information is available to first responders even when traditional infrastructure fails.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="p-8 bg-background-light dark:bg-background-dark rounded-2xl border border-primary/10 shadow-sm relative overflow-hidden group">
+<div class="text-primary/10 text-8xl font-black absolute -top-4 -right-4 transition-transform group-hover:scale-110">01</div>
+<div class="w-14 h-14 bg-primary rounded-xl flex items-center justify-center text-white mb-6 relative z-10">
+<span class="material-icons text-3xl">person_add_alt</span>
+</div>
+<h3 class="text-xl font-bold mb-3 relative z-10">Create Profile</h3>
+<p class="text-slate-500 dark:text-slate-400 relative z-10 leading-relaxed">Securely input vital medical data, blood type, allergies, and emergency contact details into our encrypted vault.</p>
+</div>
+<div class="p-8 bg-background-light dark:bg-background-dark rounded-2xl border border-primary/10 shadow-sm relative overflow-hidden group">
+<div class="text-primary/10 text-8xl font-black absolute -top-4 -right-4 transition-transform group-hover:scale-110">02</div>
+<div class="w-14 h-14 bg-primary rounded-xl flex items-center justify-center text-white mb-6 relative z-10">
+<span class="material-icons text-3xl">qr_code_scanner</span>
+</div>
+<h3 class="text-xl font-bold mb-3 relative z-10">Generate QR</h3>
+<p class="text-slate-500 dark:text-slate-400 relative z-10 leading-relaxed">Receive a unique, durable digital identity. This can be printed on IDs, worn as wristbands, or stored on mobile devices.</p>
+</div>
+<div class="p-8 bg-background-light dark:bg-background-dark rounded-2xl border border-primary/10 shadow-sm relative overflow-hidden group">
+<div class="text-primary/10 text-8xl font-black absolute -top-4 -right-4 transition-transform group-hover:scale-110">03</div>
+<div class="w-14 h-14 bg-primary rounded-xl flex items-center justify-center text-white mb-6 relative z-10">
+<span class="material-icons text-3xl">synchro</span>
+</div>
+<h3 class="text-xl font-bold mb-3 relative z-10">Instant Recovery</h3>
+<p class="text-slate-500 dark:text-slate-400 relative z-10 leading-relaxed">Rescue teams scan the code to instantly synchronize with the database and access life-saving data in the field.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Benefits Section -->
+<section class="py-24" id="benefits">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div class="relative">
+<img alt="Medical team" class="rounded-3xl shadow-2xl" data-alt="Rescue workers looking at a tablet in the field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEdyHQLQIendl7hUpGAdMpPKsks1tzMIM95nVQdb2EggIET2qU8L6_DS5vZQpUxqdV4EGFAvx2b81Og-yXW4dNdvsjfI9HEVfsjxU5lBi1tVV8W6kogH3QBMlQajGMRY0PyOfbhi4yn-MzRTkJ74NhUFrPUm1I2VRM1Agp38FDByVQFYuRqK8dW0gVlOtyZExNWVmll51-u3qdwPKIxIgtxH7r2JIUDe650vt6oqnhypBY634xWH33cINmHzLONKOu7NIdxyuEVv4"/>
+<div class="absolute -bottom-6 -right-6 bg-primary p-6 rounded-2xl text-white shadow-xl max-w-[240px]">
+<p class="text-3xl font-bold mb-1">94%</p>
+<p class="text-sm font-medium opacity-90">Reduction in identification time during emergency protocols.</p>
+</div>
+</div>
+<div class="space-y-12">
+<div>
+<h2 class="text-3xl md:text-4xl font-extrabold mb-6 leading-tight">Engineered for Reliability in Critical Moments</h2>
+<p class="text-slate-500 dark:text-slate-400 text-lg">RescueID isn't just a profile—it's a failsafe for human life during times of crisis and displacement.</p>
+</div>
+<div class="grid gap-8">
+<div class="flex gap-5">
+<div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-icons">bolt</span>
+</div>
+<div>
+<h4 class="text-xl font-bold mb-2">Real-time Access</h4>
+<p class="text-slate-500 dark:text-slate-400">Low-bandwidth optimization ensures profiles load even in areas with poor cellular connectivity or satellite linkups.</p>
+</div>
+</div>
+<div class="flex gap-5">
+<div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-icons">security</span>
+</div>
+<div>
+<h4 class="text-xl font-bold mb-2">Military-Grade Security</h4>
+<p class="text-slate-500 dark:text-slate-400">End-to-end encryption with zero-knowledge architecture. Only authorized rescue workers with valid credentials can decrypt profile data.</p>
+</div>
+</div>
+<div class="flex gap-5">
+<div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-icons">public</span>
+</div>
+<div>
+<h4 class="text-xl font-bold mb-2">Global Interoperability</h4>
+<p class="text-slate-500 dark:text-slate-400">Compliant with international humanitarian data standards, allowing seamless use across different NGOs and national agencies.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-24 bg-slate-900 border-y border-white/5">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex flex-col items-center text-center mb-16">
+<span class="text-primary font-bold uppercase tracking-widest text-sm mb-4">Voice from the Field</span>
+<h2 class="text-3xl md:text-4xl font-extrabold text-white">Trusted by Relief Leaders</h2>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<div class="bg-white/5 p-10 rounded-3xl border border-white/10 italic text-slate-300 relative">
+<span class="material-icons text-primary/30 text-6xl absolute top-4 right-4">format_quote</span>
+<p class="text-lg leading-relaxed mb-8">
+                        "RescueID solved one of our biggest challenges in conflict zones: rapid patient triage. Knowing an individual's medical history before they even reach the clinic saves critical minutes that often mean the difference between life and death."
+                    </p>
+<div class="flex items-center gap-4 not-italic">
+<img alt="Sarah Miller" class="w-12 h-12 rounded-full object-cover" data-alt="Headshot of a female doctor in medical gear" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQWYxlB_nBi0fy23eqHZ9g4YfAMQ6AovTnd5sb8S9Y3Yjn-6PEhZrKStAp9b2nvgy0ZL5LJWEoJrEA4SDA_pQR1-eHsuRMpl89EjQ2TnD-KQV6aa6WnGGvc7I1ATPQlFa3yb-l0VXZzsiUUd7BWLbr-94dWq1qPsC-HhI_uudfcK4Vf2LVLNF8GWrBP0F1yV55kYsG4imt3_yf5ZFJtWZd7GBTPZSAi7eUBPnYi2VvM0Y2QQFTwQaNj2C_7AYIL_kzhXkjVOehJFo"/>
+<div>
+<p class="font-bold text-white">Dr. Sarah Miller</p>
+<p class="text-sm text-slate-500">Chief Medical Officer, Global Relief Corps</p>
+</div>
+</div>
+</div>
+<div class="bg-white/5 p-10 rounded-3xl border border-white/10 italic text-slate-300 relative">
+<span class="material-icons text-primary/30 text-6xl absolute top-4 right-4">format_quote</span>
+<p class="text-lg leading-relaxed mb-8">
+                        "The security and privacy of our vulnerable populations are paramount. RescueID's encrypted system gives us the confidence to digitize identities without compromising the safety of the people we serve."
+                    </p>
+<div class="flex items-center gap-4 not-italic">
+<img alt="David Chen" class="w-12 h-12 rounded-full object-cover" data-alt="Headshot of a male humanitarian logistics expert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMBfprF5kvenb9n2NForfjonIy0b-figdPJLr7rEAzGEHy6Zf8AbX2dw0EadipCf3Z4lxSkElv7f3WxKIMCV2yRVhi19IcAyc2-yc5O_TFnKBpemcpsqqR258ISHMhAGkonIvC9tJZzh6Frr2jg8MXC6ivJUj1j6G-Y9hVsZm84VvKNufYZY_tcIeundkkNFaSCeW9rO1VqkYp4WebsPg6jumxKzklEPc7_QifNB2xouiWIk-cRophy0QAxagqaj7In5zV5_mFR3s"/>
+<div>
+<p class="font-bold text-white">David Chen</p>
+<p class="text-sm text-slate-500">Logistics Director, Crisis Response International</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Call to Action -->
+<section class="py-24 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5 -z-10"></div>
+<div class="max-w-5xl mx-auto px-6 text-center">
+<div class="bg-primary rounded-[3rem] p-12 md:p-20 relative overflow-hidden shadow-2xl shadow-primary/20">
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[80px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
+<div class="absolute bottom-0 left-0 w-48 h-48 bg-black/10 blur-[60px] rounded-full -translate-x-1/2 translate-y-1/2"></div>
+<h2 class="text-3xl md:text-5xl font-extrabold text-white mb-8 relative z-10 leading-tight">Ready to Secure Your Life-Saving Identity?</h2>
+<p class="text-primary-100 text-lg md:text-xl mb-12 opacity-90 relative z-10 max-w-2xl mx-auto">
+                    Join the thousands of people already protected by RescueID. Registration takes less than 3 minutes.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+<button class="bg-white text-primary hover:bg-slate-100 text-lg font-bold px-10 py-5 rounded-2xl transition-all shadow-xl">
+                        <a href="/Sign-up.html">Register for ID Now</a>
+                    </button>
+<button class="bg-primary-dark/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/10 text-lg font-bold px-10 py-5 rounded-2xl transition-all">
+                        Contact Sales for NGOs
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-background-light dark:bg-background-dark pt-20 pb-10 border-t border-primary/5">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
+<div class="col-span-2">
+<div class="flex items-center gap-2 mb-6">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-icons text-white text-lg">qr_code_2</span>
+</div>
+<span class="text-lg font-bold tracking-tight">Rescue<span class="text-primary">ID</span></span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 mb-8 max-w-xs leading-relaxed">
+                        A specialized platform for humanitarian aid and victim rescue, utilizing QR-coded identity profiles to assist in emergency recovery and identification.
+                    </p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-icons text-xl">facebook</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-icons text-xl">share</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-icons text-xl">public</span>
+</a>
+</div>
+</div>
+<!-- <div> -->
+<!-- <h4 class="font-bold mb-6">Platform</h4>
+<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">How it Works</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Pricing for NGOs</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Global Network</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Mobile App</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6">Security</h4>
+<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Data Encryption</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Compliance</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Transparency</a></li>
+</ul>
+</div>
+<div> -->
+<!-- <h4 class="font-bold mb-6">Support</h4> -->
+<!-- <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Crisis Protocol</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Field Support</a></li>
+</ul> -->
+<!-- </div> -->
+</div>
+<div class="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:row items-center justify-between gap-4 text-xs text-slate-500 uppercase tracking-widest font-bold">
+<div class="flex gap-8">
+<a href="">Designed By M Shrinivas</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
