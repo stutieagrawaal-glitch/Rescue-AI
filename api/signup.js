@@ -1,16 +1,4 @@
-import { MongoClient } from 'mongodb';
-import crypto from 'crypto';
-
-const MONGODB_URI = process.env.MONGODB_URI;
-const DB_NAME = 'rescue-ai';
-const USERS_COLLECTION = 'users';
-
-function hashPassword(password) {
-  return crypto.createHash('sha256').update(password).digest('hex');
-}
-
-export default async function handler(req, res) {
-  // CORS headers
+export default function handler(req, res) {
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -25,12 +13,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const client = new MongoClient(MONGODB_URI);
-
   try {
     const { fullName, email, password, confirmPassword } = req.body;
 
-    // Validation
     if (!fullName || !email || !password) {
       return res.status(400).json({ error: 'All fields required' });
     }
@@ -43,30 +28,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Password must be at least 6 characters' });
     }
 
-    // Connect to MongoDB
-    await client.connect();
-    const db = client.db(DB_NAME);
-    const usersCollection = db.collection(USERS_COLLECTION);
-
-    // Check if email already exists
-    const existingUser = await usersCollection.findOne({ email: email });
-    if (existingUser) {
-      return res.status(400).json({ error: 'Email already registered' });
-    }
-
-    // Create new user
-    const newUser = {
-      fullName,
-      email,
-      password: hashPassword(password),
-      createdAt: new Date()
-    };
-
-    const result = await usersCollection.insertOne(newUser);
-
+    // Temporary: Just save to localStorage on frontend
     return res.status(201).json({
       success: true,
-      userId: result.insertedId.toString(),
+      userId: `user_${Date.now()}`,
       fullName,
       email,
       message: 'Account created successfully'
@@ -78,7 +43,5 @@ export default async function handler(req, res) {
       error: 'Internal server error',
       details: error.message
     });
-  } finally {
-    await client.close();
   }
 }
