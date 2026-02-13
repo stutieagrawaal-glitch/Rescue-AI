@@ -1,217 +1,430 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emergency Profile | RescueID</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#137fec",
-                        "background-light": "#f6f7f8",
-                        "background-dark": "#101922",
-                        "emergency": "#ef4444",
-                    },
-                    fontFamily: {
-                        "display": ["Inter"]
-                    },
-                },
-            },
-        }
-    </script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        @media print {
-            .no-print { display: none; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .error-box {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+        }
+
+        .error-box.show {
+            display: block;
+        }
+
+        .error-icon {
+            font-size: 40px;
+            color: #721c24;
+            margin-bottom: 10px;
+        }
+
+        .error-text {
+            color: #721c24;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .profile-content {
+            display: none;
+        }
+
+        .profile-content.show {
+            display: block;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .profile-name {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .profile-id {
+            font-size: 12px;
+            opacity: 0.9;
+            word-break: break-all;
+        }
+
+        .info-section {
+            margin-bottom: 25px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #667eea;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 18px;
+            color: #333;
+            padding: 12px;
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .emergency-contact {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .emergency-label {
+            color: #856404;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .emergency-number {
+            font-size: 20px;
+            color: #856404;
+            font-weight: bold;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-home {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-home:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .btn-call {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-call:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaba;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 20px;
+            }
+
+            .profile-name {
+                font-size: 22px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display">
-    <!-- Header -->
-    <header class="border-b border-emergency/20 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50 no-print">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-emergency rounded flex items-center justify-center">
-                    <span class="material-icons text-white text-xl">emergency</span>
-                </div>
-                <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">RESCUE<span class="text-emergency text-sm align-top ml-0.5">ALERT</span></span>
-            </div>
-        </div>
-    </header>
-
-    <main class="max-w-3xl mx-auto px-4 py-12">
-        <div id="loading" class="text-center py-12">
-            <div class="inline-block animate-spin">
-                <span class="material-icons text-4xl text-primary">refresh</span>
-            </div>
-            <p class="mt-4 text-slate-500">Loading emergency profile...</p>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🆘 RescueID</div>
+            <p style="color: white; opacity: 0.9;">Emergency Profile Access</p>
         </div>
 
-        <div id="profile" style="display:none;">
-            <!-- Emergency Alert Banner -->
-            <div class="bg-emergency/20 border-2 border-emergency rounded-xl p-6 mb-8">
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="material-icons text-emergency text-3xl">priority_high</span>
-                    <h1 class="text-2xl font-bold text-emergency">⚠️ EMERGENCY PROFILE</h1>
-                </div>
-                <p class="text-sm text-slate-700 dark:text-slate-300">
-                    This profile contains critical medical information for emergency responders.
+        <div class="card">
+            <!-- Loading State -->
+            <div class="loading show" id="loadingState">
+                <div class="spinner"></div>
+                <p style="color: #667eea; font-weight: bold;">Loading emergency profile...</p>
+            </div>
+
+            <!-- Error State -->
+            <div class="error-box" id="errorState">
+                <div class="error-icon">⚠️</div>
+                <div class="error-text">Error: Profile not found</div>
+                <p style="color: #721c24; margin-top: 10px; font-size: 14px;">
+                    The emergency profile you're looking for doesn't exist or has expired.
                 </p>
             </div>
 
-            <!-- Profile Data Card -->
-            <div class="bg-white dark:bg-slate-900 border-2 border-emergency/30 rounded-xl p-8 space-y-6">
-                
-                <!-- Name & Age Section -->
-                <div class="border-b border-slate-200 dark:border-slate-800 pb-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <p class="text-xs uppercase font-bold text-slate-500 mb-2">Full Name</p>
-                            <p id="profileName" class="text-3xl font-bold text-slate-900 dark:text-white">---</p>
-                        </div>
-                        <div>
-                            <p class="text-xs uppercase font-bold text-slate-500 mb-2">Age</p>
-                            <p id="profileAge" class="text-3xl font-bold text-slate-900 dark:text-white">---</p>
-                        </div>
-                    </div>
+            <!-- Profile Content -->
+            <div class="profile-content" id="profileContent">
+                <div class="profile-header">
+                    <div class="profile-name" id="profileName">--</div>
+                    <div class="profile-id" id="profileId">ID: --</div>
                 </div>
 
-                <!-- Critical Medical Information -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-2 border-red-300 dark:border-red-700">
-                        <p class="text-xs uppercase font-bold text-red-600 dark:text-red-400 mb-2">
-                            <span class="material-icons text-sm align-middle">bloodtype</span> Blood Type
-                        </p>
-                        <p id="profileBlood" class="text-3xl font-bold text-red-700 dark:text-red-300">---</p>
-                    </div>
-
-                    <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border-2 border-yellow-300 dark:border-yellow-700">
-                        <p class="text-xs uppercase font-bold text-yellow-600 dark:text-yellow-400 mb-2">
-                            <span class="material-icons text-sm align-middle">warning_amber</span> Allergies
-                        </p>
-                        <p id="profileAllergies" class="text-sm font-semibold text-yellow-700 dark:text-yellow-300 max-h-20 overflow-y-auto">---</p>
-                    </div>
+                <div class="alert alert-warning">
+                    📍 Emergency Response Portal
                 </div>
 
-                <!-- Contact Information -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 dark:bg-slate-800/50 rounded-lg p-6">
-                    <div>
-                        <p class="text-xs uppercase font-bold text-slate-600 dark:text-slate-400 mb-2">
-                            <span class="material-icons text-sm align-middle">phone</span> Primary Contact
-                        </p>
-                        <a id="profileContact" href="tel:" class="text-xl font-bold text-primary hover:underline">---</a>
-                    </div>
-                    <div>
-                        <p class="text-xs uppercase font-bold text-slate-600 dark:text-slate-400 mb-2">
-                            <span class="material-icons text-sm align-middle">phone_in_talk</span> Alternate Contact
-                        </p>
-                        <a id="profileAlternateContact" href="tel:" class="text-xl font-bold text-primary hover:underline">---</a>
-                    </div>
+                <!-- Blood Type -->
+                <div class="info-section">
+                    <div class="info-label">🩸 Blood Type</div>
+                    <div class="info-value" id="bloodType">--</div>
+                </div>
+
+                <!-- Age -->
+                <div class="info-section">
+                    <div class="info-label">📅 Age</div>
+                    <div class="info-value" id="age">--</div>
+                </div>
+
+                <!-- Contact Number -->
+                <div class="info-section">
+                    <div class="info-label">📱 Contact Number</div>
+                    <div class="info-value" id="contactNo">--</div>
+                </div>
+
+                <!-- Alternate Contact -->
+                <div class="info-section">
+                    <div class="info-label">📞 Alternate Contact</div>
+                    <div class="info-value" id="alternateContact">--</div>
                 </div>
 
                 <!-- Address -->
-                <div class="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-6">
-                    <p class="text-xs uppercase font-bold text-slate-600 dark:text-slate-400 mb-3">
-                        <span class="material-icons text-sm align-middle">location_on</span> Permanent Address
-                    </p>
-                    <p id="profileAddress" class="text-sm text-slate-700 dark:text-slate-300">---</p>
+                <div class="info-section">
+                    <div class="info-label">📍 Address</div>
+                    <div class="info-value" id="address">--</div>
                 </div>
 
                 <!-- Medical History -->
-                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 border border-blue-200 dark:border-blue-800">
-                    <p class="text-xs uppercase font-bold text-blue-600 dark:text-blue-400 mb-3">
-                        <span class="material-icons text-sm align-middle">local_hospital</span> Medical History
-                    </p>
-                    <p id="profileMedicalHistory" class="text-sm text-blue-900 dark:text-blue-200 whitespace-pre-wrap">---</p>
+                <div class="info-section">
+                    <div class="info-label">⚕️ Medical History</div>
+                    <div class="info-value" id="medicalHistory">--</div>
+                </div>
+
+                <!-- Allergies -->
+                <div class="info-section">
+                    <div class="info-label">⚠️ Allergies</div>
+                    <div class="info-value" id="allergies">--</div>
                 </div>
 
                 <!-- Medicines -->
-                <div class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-6 border border-purple-200 dark:border-purple-800">
-                    <p class="text-xs uppercase font-bold text-purple-600 dark:text-purple-400 mb-3">
-                        <span class="material-icons text-sm align-middle">medication</span> Current Medicines
-                    </p>
-                    <p id="profileMedicines" class="text-sm text-purple-900 dark:text-purple-200 whitespace-pre-wrap">---</p>
+                <div class="info-section">
+                    <div class="info-label">💊 Current Medicines</div>
+                    <div class="info-value" id="medicines">--</div>
+                </div>
+
+                <!-- Emergency Contact Box -->
+                <div class="emergency-contact">
+                    <div class="emergency-label">🚨 Emergency Contact</div>
+                    <div class="emergency-number" id="emergencyContact">--</div>
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="grid grid-cols-2 gap-4 pt-6 border-t border-slate-200 dark:border-slate-800 no-print">
-                    <button onclick="window.print()" class="flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-bold py-3 rounded-lg transition-all">
-                        <span class="material-icons">print</span>
-                        Print
+                <div class="button-group">
+                    <button class="btn-call" onclick="callEmergency()" id="callBtn">
+                        📞 Call Emergency
                     </button>
-                    <button onclick="window.location.href='/'" class="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-lg transition-all">
-                        <span class="material-icons">home</span>
-                        Home
+                    <button class="btn-home" onclick="returnHome()">
+                        🏠 Return Home
                     </button>
                 </div>
             </div>
         </div>
-
-        <div id="error" style="display:none;" class="bg-red-100 dark:bg-red-900/30 border-2 border-red-500 rounded-xl p-6 text-center">
-            <span class="material-icons text-4xl text-red-600 dark:text-red-400 justify-center">error_outline</span>
-            <p id="errorMessage" class="mt-4 text-red-700 dark:text-red-300 font-semibold">Profile not found</p>
-            <a href="/" class="mt-4 inline-block bg-primary hover:bg-primary/90 text-white font-bold py-2 px-6 rounded-lg">
-                Return Home
-            </a>
-        </div>
-    </main>
+    </div>
 
     <script>
         // Get emergency ID from URL
-        const params = new URLSearchParams(window.location.search);
-        const emergencyID = params.get('id');
-
-        if (!emergencyID) {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('error').style.display = 'block';
-            document.getElementById('errorMessage').textContent = 'No emergency profile ID provided';
-        } else {
-            // Fetch emergency profile
-            fetch(`/api/emergency/${emergencyID}`)
-                .then(res => {
-                    if (!res.ok) throw new Error('Profile not found');
-                    return res.json();
-                })
-                .then(data => {
-                    // Populate all profile data
-                    document.getElementById('profileName').textContent = data.fullName;
-                    document.getElementById('profileAge').textContent = data.age + ' years';
-                    document.getElementById('profileBlood').textContent = data.bloodType;
-                    document.getElementById('profileAllergies').textContent = data.allergies;
-                    document.getElementById('profileMedicalHistory').textContent = data.medicalHistory;
-                    document.getElementById('profileMedicines').textContent = data.medicines;
-                    document.getElementById('profileAddress').textContent = data.permanentAddress;
-
-                    // Format phone numbers
-                    const primaryContact = document.getElementById('profileContact');
-                    primaryContact.textContent = data.contactNo;
-                    primaryContact.href = `tel:${data.contactNo.replace(/\D/g, '')}`;
-
-                    const alternateContact = document.getElementById('profileAlternateContact');
-                    if (data.alternateContactNo && data.alternateContactNo !== 'Not provided') {
-                        alternateContact.textContent = data.alternateContactNo;
-                        alternateContact.href = `tel:${data.alternateContactNo.replace(/\D/g, '')}`;
-                    } else {
-                        alternateContact.textContent = 'Not provided';
-                    }
-
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('profile').style.display = 'block';
-                })
-                .catch(err => {
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('error').style.display = 'block';
-                    document.getElementById('errorMessage').textContent = 'Error: ' + err.message;
-                });
+        function getEmergencyId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
         }
+
+        // Fetch emergency profile
+        async function fetchEmergencyProfile() {
+            const emergencyId = getEmergencyId();
+
+            if (!emergencyId) {
+                showError();
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/emergency?id=${emergencyId}`);
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    showError();
+                    return;
+                }
+
+                displayProfile(data);
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+                showError();
+            }
+        }
+
+        // Display profile data
+        function displayProfile(data) {
+            document.getElementById('loadingState').classList.remove('show');
+            document.getElementById('errorState').classList.remove('show');
+            document.getElementById('profileContent').classList.add('show');
+
+            // Populate fields
+            document.getElementById('profileName').textContent = data.fullName || '--';
+            document.getElementById('profileId').textContent = `ID: ${data.id || '--'}`;
+            document.getElementById('bloodType').textContent = data.bloodType || '--';
+            document.getElementById('age').textContent = data.age || '--';
+            document.getElementById('contactNo').textContent = data.contactNo || '--';
+            document.getElementById('alternateContact').textContent = data.alternateContactNo || '--';
+            document.getElementById('address').textContent = data.permanentAddress || '--';
+            document.getElementById('medicalHistory').textContent = data.medicalHistory || 'None recorded';
+            document.getElementById('allergies').textContent = data.allergies || 'No known allergies';
+            document.getElementById('medicines').textContent = data.medicines || 'None';
+            document.getElementById('emergencyContact').textContent = data.emergencyContact || '--';
+        }
+
+        // Show error message
+        function showError() {
+            document.getElementById('loadingState').classList.remove('show');
+            document.getElementById('profileContent').classList.remove('show');
+            document.getElementById('errorState').classList.add('show');
+        }
+
+        // Call emergency contact
+        function callEmergency() {
+            const contactElement = document.getElementById('emergencyContact');
+            const phoneNumber = contactElement.textContent;
+
+            if (phoneNumber && phoneNumber !== '--') {
+                // Remove any non-digit characters except +
+                const cleanNumber = phoneNumber.replace(/[^\d+]/g, '');
+                window.location.href = `tel:${cleanNumber}`;
+            } else {
+                alert('No emergency contact number available');
+            }
+        }
+
+        // Return to home
+        function returnHome() {
+            window.location.href = '/';
+        }
+
+        // Load profile on page load
+        window.addEventListener('DOMContentLoaded', fetchEmergencyProfile);
     </script>
 </body>
 </html>
