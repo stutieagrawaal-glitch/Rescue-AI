@@ -1,199 +1,556 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - RescueID</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Platform Registration | Humanitarian Response Network</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              colors: {
-                "primary": "#137fec",
-                "background-light": "#f6f7f8",
-                "background-dark": "#101922",
-                "slate-neutral": "#64748b",
-              },
-              fontFamily: {
-                "display": ["Inter", "sans-serif"]
-              },
-              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-            },
-          },
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .success-box {
+            display: none;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .success-box.show {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .success-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .rescue-id-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+        }
+
+        .rescue-id-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .rescue-id {
+            font-size: 18px;
+            font-weight: bold;
+            word-break: break-all;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 15px;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            font-size: 13px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .success-message {
+            font-size: 14px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .action-buttons button {
+            flex: 1;
+            margin: 0;
+            background: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+        }
+
+        .action-buttons button:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-section {
+            display: block;
+        }
+
+        .form-section.hide {
+            display: none;
+        }
+
+        .password-strength {
+            font-size: 12px;
+            margin-top: 5px;
+            padding: 5px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .password-strength.show {
+            display: block;
+        }
+
+        .strength-weak {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .strength-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .strength-strong {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 25px;
+            }
+
+            .logo {
+                font-size: 32px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">🆘 RescueID</div>
+            <p class="tagline">Join the Humanitarian Response Network</p>
+        </div>
+
+        <div class="card">
+            <!-- Success Box (Hidden by default) -->
+            <div class="success-box" id="successBox">
+                <div class="success-icon">✅</div>
+                <div class="success-title">Welcome to RescueID!</div>
+                <div class="success-message">
+                    Your account has been created successfully. Save your Rescue ID for future reference.
+                </div>
+                <div class="rescue-id-box">
+                    <div class="rescue-id-label">Your Unique Rescue ID</div>
+                    <div class="rescue-id" id="rescueIdDisplay">--</div>
+                    <button class="copy-btn" onclick="copyRescueId()">📋 Copy Rescue ID</button>
+                </div>
+                <div style="font-size: 13px; opacity: 0.9; margin: 15px 0;">
+                    Use this ID to manage your emergency profile and access your account.
+                </div>
+                <div class="action-buttons">
+                    <button onclick="goToDashboard()">📊 Go to Dashboard</button>
+                    <button onclick="goToHome()">🏠 Return Home</button>
+                </div>
+            </div>
+
+            <!-- Alert Messages -->
+            <div class="alert alert-error" id="errorAlert"></div>
+
+            <!-- Signup Form (Hidden after success) -->
+            <div class="form-section" id="formSection">
+                <form id="signupForm" onsubmit="handleSignUp(event)">
+                    <h2 style="margin-bottom: 20px; color: #333; text-align: center;">Create Account</h2>
+
+                    <!-- Full Name -->
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input 
+                            type="text" 
+                            id="fullName" 
+                            placeholder="Enter your full name" 
+                            required
+                        >
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            placeholder="Enter your email" 
+                            required
+                        >
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="password">Password *</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            placeholder="At least 6 characters" 
+                            required
+                            onchange="checkPasswordStrength()"
+                        >
+                        <div class="password-strength" id="passwordStrength"></div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password *</label>
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            placeholder="Re-enter your password" 
+                            required
+                        >
+                    </div>
+
+                    <!-- Terms & Conditions -->
+                    <div class="form-group" style="display: flex; align-items: center; margin-bottom: 25px;">
+                        <input 
+                            type="checkbox" 
+                            id="terms" 
+                            required
+                            style="width: auto; margin-right: 10px; cursor: pointer;"
+                        >
+                        <label for="terms" style="margin: 0;">
+                            I agree to the Terms and Conditions
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit">Create Account</button>
+
+                    <!-- Already have account -->
+                    <div class="form-footer">
+                        Already have an account? <a href="/Sign-in.html">Sign In</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Security Badge -->
+        <div style="text-align: center; margin-top: 20px; color: white; font-size: 12px;">
+            🔒 Your data is encrypted and stored securely
+        </div>
+    </div>
+
+    <script>
+        // Check password strength
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            const strengthDiv = document.getElementById('passwordStrength');
+
+            if (password.length === 0) {
+                strengthDiv.classList.remove('show');
+                return;
+            }
+
+            let strength = 'weak';
+            let message = '⚠️ Weak password';
+
+            if (password.length >= 8) {
+                if (/[A-Z]/.test(password) && /[0-9]/.test(password)) {
+                    strength = 'strong';
+                    message = '✅ Strong password';
+                } else {
+                    strength = 'medium';
+                    message = '⚡ Medium strength';
+                }
+            } else if (password.length >= 6) {
+                strength = 'medium';
+                message = '⚡ Medium strength';
+            }
+
+            strengthDiv.className = `password-strength show strength-${strength}`;
+            strengthDiv.textContent = message;
+        }
+
+        // Generate Rescue ID
+        function generateRescueId() {
+            return `RESCUE-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+        }
+
+        // Handle signup
+        async function handleSignUp(event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById('fullName')?.value;
+            const email = document.getElementById('email')?.value;
+            const password = document.getElementById('password')?.value;
+            const confirmPassword = document.getElementById('confirmPassword')?.value;
+            const termsCheckbox = document.getElementById('terms')?.checked;
+
+            // Validation
+            if (!fullName || !email || !password || !confirmPassword) {
+                showError('⚠️ All fields are required');
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                showError('⚠️ Please enter a valid email address');
+                return;
+            }
+
+            if (password.length < 6) {
+                showError('⚠️ Password must be at least 6 characters');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showError('⚠️ Passwords do not match');
+                return;
+            }
+
+            if (!termsCheckbox) {
+                showError('⚠️ You must agree to the Terms and Conditions');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        fullName,
+                        email,
+                        password,
+                        confirmPassword
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    showError('❌ ' + (data.error || 'Signup failed'));
+                    return;
+                }
+
+                // Generate Rescue ID
+                const rescueId = generateRescueId();
+
+                // Store user info
+                localStorage.setItem('userId', data.userId);
+                localStorage.setItem('userName', data.fullName);
+                localStorage.setItem('userEmail', data.email);
+                localStorage.setItem('rescueId', rescueId);
+
+                // Show success
+                showSuccess(rescueId, data.fullName);
+
+            } catch (error) {
+                console.error('Signup error:', error);
+                showError('❌ Error: ' + error.message);
+            }
+        }
+
+        // Validate email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Show error
+        function showError(message) {
+            const errorAlert = document.getElementById('errorAlert');
+            errorAlert.textContent = message;
+            errorAlert.classList.add('show');
+            setTimeout(() => errorAlert.classList.remove('show'), 5000);
+        }
+
+        // Show success
+        function showSuccess(rescueId, fullName) {
+            // Hide form
+            document.getElementById('formSection').classList.add('hide');
+            
+            // Show success box
+            document.getElementById('successBox').classList.add('show');
+            
+            // Display Rescue ID
+            document.getElementById('rescueIdDisplay').textContent = rescueId;
+        }
+
+        // Copy Rescue ID
+        function copyRescueId() {
+            const rescueId = document.getElementById('rescueIdDisplay').textContent;
+            navigator.clipboard.writeText(rescueId).then(() => {
+                alert('✅ Rescue ID copied to clipboard!');
+            }).catch(() => {
+                alert('Failed to copy. Please copy manually.');
+            });
+        }
+
+        // Go to dashboard
+        function goToDashboard() {
+            window.location.href = '/dashboard.html';
+        }
+
+        // Go to home
+        function goToHome() {
+            window.location.href = '/';
         }
     </script>
-</head>
-<body class="font-display bg-background-light dark:bg-background-dark min-h-screen flex flex-col items-center justify-center p-4">
-<!-- Top Navigation / Logo -->
-<header class="mb-8 flex flex-col items-center text-center">
-<div class="mb-4 bg-primary p-3 rounded-xl shadow-lg shadow-primary/20">
-<span class="material-icons text-white text-3xl">qr_code_2</span>
-</div>
-<h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Join the Humanitarian Response Network</h1>
-<p class="text-slate-neutral dark:text-slate-400 max-w-md">Register to create your secure identity profile and assist in emergency recovery efforts.</p>
-</header>
-<!-- Main Registration Card -->
-<main class="w-full max-w-lg">
-<div class="bg-white dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl p-8">
-<form id="signupForm" class="space-y-5">
-<!-- Full Name -->
-<div>
-<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="full-name">Full Name</label>
-<div class="relative">
-<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">person</span>
-<input class="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-slate-900 dark:text-white placeholder-slate-400" id="full-name" name="full-name" placeholder="John Doe" required="" type="text"/>
-</div>
-</div>
-<!-- Email Address -->
-<div>
-<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="email">Email Address</label>
-<div class="relative">
-<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">email</span>
-<input class="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-slate-900 dark:text-white placeholder-slate-400" id="email" name="email" placeholder="j.doe@example.org" required="" type="email"/>
-</div>
-</div>
-<!-- Password Row -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div>
-<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="password">Password</label>
-<div class="relative">
-<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">lock</span>
-<input class="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-slate-900 dark:text-white" id="password" name="password" placeholder="••••••••" required="" type="password"/>
-</div>
-</div>
-<div>
-<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="confirm-password">Confirm Password</label>
-<div class="relative">
-<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">shield</span>
-<input class="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-slate-900 dark:text-white" id="confirm-password" name="confirm-password" placeholder="••••••••" required="" type="password"/>
-</div>
-</div>
-</div>
-<!-- Security Note -->
-<div class="flex items-center gap-2 px-1 text-xs text-slate-500 dark:text-slate-400">
-<span class="material-icons text-sm">verified_user</span>
-<span>Your data is encrypted and stored in compliance with humanitarian safety protocols.</span>
-</div>
-<hr class="border-slate-200 dark:border-slate-800 my-2"/>
-<!-- Agreement Checkbox -->
-<div class="space-y-3">
-<div class="flex items-start">
-<div class="flex items-center h-5">
-<input class="w-4 h-4 text-primary border-slate-300 dark:border-slate-700 rounded focus:ring-primary" id="terms" name="terms" required="" type="checkbox"/>
-</div>
-<div class="ml-3 text-sm">
-<label class="text-slate-600 dark:text-slate-400 leading-tight" for="terms">
-                                I agree to the <a class="text-primary hover:underline font-medium" href="#">Terms and Conditions</a> and the <a class="text-primary hover:underline font-medium" href="#">Data Privacy Agreement</a> regarding my identity profile.
-                            </label>
-</div>
-</div>
-</div>
-<!-- Primary Action -->
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors flex items-center justify-center gap-2" type="submit">
-<span>Create Account</span>
-<span class="material-icons text-lg">arrow_forward</span>
-</button>
-</form>
-<div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 text-center">
-<p class="text-sm text-slate-600 dark:text-slate-400">
-                    Already have an account? 
-                    <a class="text-primary hover:underline font-semibold ml-1" href="/Sign-in.html">Log in</a>
-</p>
-</div>
-</div>
-<!-- Trust Indicators -->
-<div class="mt-8 flex flex-wrap justify-center gap-6 opacity-60">
-<div class="flex items-center gap-1.5 grayscale hover:grayscale-0 transition-all cursor-default">
-<span class="material-icons text-slate-500 text-lg">health_and_safety</span>
-<span class="text-xs font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">Rescue Certified</span>
-</div>
-<div class="flex items-center gap-1.5 grayscale hover:grayscale-0 transition-all cursor-default">
-<span class="material-icons text-slate-500 text-lg">public</span>
-<span class="text-xs font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">Global Network</span>
-</div>
-<div class="flex items-center gap-1.5 grayscale hover:grayscale-0 transition-all cursor-default">
-<span class="material-icons text-slate-500 text-lg">security</span>
-<span class="text-xs font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">Secure Data</span>
-</div>
-</div>
-</main>
-<!-- Footer Meta -->
-<footer class="mt-auto py-8 text-center text-xs text-slate-500 dark:text-slate-600">
-<p>© 2024 Humanitarian Identity Foundation. All rights reserved.</p>
-<div class="flex justify-center gap-4 mt-2">
-<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
-<a class="hover:text-primary transition-colors" href="#">Emergency Protocols</a>
-<a class="hover:text-primary transition-colors" href="#">Legal</a>
-</div>
-</footer>
-<!-- Background Pattern Decoration -->
-<div class="fixed top-0 right-0 -z-10 w-1/3 h-1/3 opacity-20 pointer-events-none">
-<div class="w-full h-full bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-</div>
-<div class="fixed bottom-0 left-0 -z-10 w-1/3 h-1/3 opacity-20 pointer-events-none">
-<div class="w-full h-full bg-primary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-</div>
-
-<script>
-// Wait for DOM to load
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('signupForm');
-    if (form) {
-        form.addEventListener('submit', handleSignUp);
-    }
-});
-
-// Sign Up Handler
-async function handleSignUp(e) {
-    e.preventDefault();
-
-    const fullName = document.getElementById('full-name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-
-    // Validation
-    if (!fullName || !email || !password || !confirmPassword) {
-        alert('⚠️ All fields are required');
-        return;
-    }
-
-    if (password.length < 6) {
-        alert('⚠️ Password must be at least 6 characters');
-        return;
-    }
-
-    if (password !== confirmPassword) {
-        alert('⚠️ Passwords do not match');
-        return;
-    }
-
-    try {
-        const response = await fetch('/api/signup', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ fullName, email, password, confirmPassword })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            alert('✅ Account created successfully! Redirecting to login...');
-            setTimeout(() => {
-                window.location.href = '/Sign-in.html';
-            }, 1500);
-        } else {
-            alert('❌ ' + (data.error || 'Failed to create account'));
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('❌ Error: ' + error.message);
-    }
-}
-</script>
-</body></html>
+</body>
+</html>
