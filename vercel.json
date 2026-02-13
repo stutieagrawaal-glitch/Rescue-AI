@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "buildCommand": "npm --prefix backend install",
+  "outputDirectory": "public",
+  "functions": {
+    "api/signup.js": {
+      "maxDuration": 10,
+      "memory": 128
+    },
+    "api/signin.js": {
+      "maxDuration": 10,
+      "memory": 128
+    },
+    "api/emergency.js": {
+      "maxDuration": 10,
+      "memory": 128
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
+  ]
+}

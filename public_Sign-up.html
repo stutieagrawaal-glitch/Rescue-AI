@@ -1,0 +1,66 @@
+<script>
+// Wait for DOM to load
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('signupForm');
+    if (form) {
+        form.addEventListener('submit', handleSignUp);
+    }
+});
+
+// Sign Up Handler
+async function handleSignUp(e) {
+    e.preventDefault();
+
+    const fullName = document.getElementById('full-name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    // Validation
+    if (!fullName || !email || !password || !confirmPassword) {
+        alert('⚠️ All fields are required');
+        return;
+    }
+
+    if (password.length < 6) {
+        alert('⚠️ Password must be at least 6 characters');
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        alert('⚠️ Passwords do not match');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fullName, email, password, confirmPassword })
+        });
+
+        // Handle non-JSON responses
+        const contentType = response.headers.get('content-type');
+        let data;
+        
+        if (contentType && contentType.includes('application/json')) {
+            data = await response.json();
+        } else {
+            // If response is not JSON, show error
+            throw new Error(`Server error: Expected JSON but got ${contentType || 'unknown'}`);
+        }
+
+        if (response.ok) {
+            alert('✅ Account created successfully! Redirecting to login...');
+            setTimeout(() => {
+                window.location.href = '/Sign-in.html';
+            }, 1500);
+        } else {
+            alert('❌ ' + (data.error || 'Failed to create account'));
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('❌ Error: ' + error.message);
+    }
+}
+</script>
